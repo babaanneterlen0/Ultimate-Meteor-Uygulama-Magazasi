@@ -322,6 +322,96 @@
             opacity: 0.7;
         }
 
+        .page-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 35px;
+        }
+
+        .page-tab {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            padding: 10px 26px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .page-tab:hover {
+            border-color: #FFD700;
+        }
+
+        .page-tab.active {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #000;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .page-view { display: none; }
+        .page-view.active { display: block; }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.6rem;
+            color: #FFD700;
+            margin: 40px 0 20px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+        }
+
+        .section-title:first-of-type { margin-top: 0; }
+
+        .section-title.hardcore {
+            color: #40b0ff;
+            text-shadow: 0 0 10px rgba(64, 176, 255, 0.5);
+        }
+
+        .section-divider {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, rgba(255, 215, 0, 0.4), transparent);
+        }
+
+        .section-title.hardcore .section-divider {
+            background: linear-gradient(to right, rgba(64, 176, 255, 0.4), transparent);
+        }
+
+        .empty-section {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px dashed rgba(64, 176, 255, 0.3);
+            border-radius: 15px;
+            padding: 40px 20px;
+            text-align: center;
+            opacity: 0.75;
+            margin-bottom: 40px;
+        }
+
+        .hardcore-visit-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(45deg, #40b0ff, #0066ff);
+            color: #fff;
+            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.05rem;
+            margin-top: 20px;
+            box-shadow: 0 0 20px rgba(64, 176, 255, 0.35);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .hardcore-visit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(64, 176, 255, 0.5);
+        }
+
         @media (max-width: 768px) {
             .header h1 { font-size: 2rem; }
             .games-grid { grid-template-columns: 1fr; }
@@ -341,6 +431,14 @@
             <p>Ultimate Meteor serisinin tüm APK'larını Google Drive üzerinden güvenle indirin.</p>
         </div>
 
+        <div class="page-tabs">
+            <button class="page-tab active" onclick="showPage(1)">Sayfa 1</button>
+            <button class="page-tab" onclick="showPage(2)">Sayfa 2</button>
+        </div>
+
+        <div id="page-1" class="page-view active">
+
+        <h2 class="section-title">☄️ Klasik Ultimate Meteor Oyunları<span class="section-divider"></span></h2>
         <div class="games-grid">
             <div class="game-card featured">
                 <h3><span class="icon">🌟</span> Ultimate Meteor 7 <span class="new-badge">YENİ</span></h3>
@@ -495,9 +593,43 @@
             </ol>
         </div>
 
+        </div>
+
+        <div id="page-2" class="page-view" style="display:none;">
+            <div class="games-grid">
+                <div class="game-card featured">
+                    <h3><span class="icon">🚀</span> Ultimate Meteor Hardcore Remake</h3>
+                    <div class="description">Oyunun Hardcore Game Engine ile yeniden yapılması, grafiksel cilalama ve özellik güncellemesi alması!</div>
+                    <div class="features">
+                        <span class="feature-tag">Hardcore Game Engine</span>
+                        <span class="feature-tag">Grafiksel Cilalama</span>
+                        <span class="feature-tag">Özellik Güncellemesi</span>
+                    </div>
+                    <a href="https://drive.google.com/file/d/1AbZRZDGmw2xGi-LqOuKXIWc4rWGUwQyL/view?usp=drivesdk" class="download-btn">📥 Drive'dan İndir</a>
+                </div>
+            </div>
+        </div>
+
         <div class="footer">
             <p>© 2026 Ultimate Meteor Studios | Lisans: GNU GPL v3</p>
+            <a href="https://github.com/Hardcore-Team/Hardcore-Game-Engine" target="_blank" rel="noopener" class="hardcore-visit-btn">⚙️ Hardcore'u ziyaret et</a>
         </div>
     </div>
+
+    <script>
+        function showPage(pageNum) {
+            document.querySelectorAll('.page-view').forEach(function(el) {
+                el.classList.remove('active');
+                el.style.display = 'none';
+            });
+            document.querySelectorAll('.page-tab').forEach(function(el) {
+                el.classList.remove('active');
+            });
+            var target = document.getElementById('page-' + pageNum);
+            target.classList.add('active');
+            target.style.display = 'block';
+            document.querySelectorAll('.page-tab')[pageNum - 1].classList.add('active');
+        }
+    </script>
 </body>
 </html>
